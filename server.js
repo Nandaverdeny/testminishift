@@ -80,21 +80,21 @@ app.get('/', function (req, res) {
     
     var counts = [];
     
-    ldb.get('count', function (err, obj)
+    ldb.get('count', function (err, oldobj)
     {
-        counts = obj;
+        counts = oldobj;
         
         counts.push({ip: req.ip, date: Date.now()});
         
         ldb.put('count', 
           counts
         , function(err) {
-            ldb.get('count', function (err, obj)
+            ldb.get('count', function (err, retobj)
             {
                 dbDetails.databaseName = 'dbLevelTest';
                 dbDetails.url = '';
                 dbDetails.type = 'Rocksdb';
-                res.render('index.html', { pageCountMessage : obj.length, dbInfo: dbDetails });
+                res.render('index.html', { pageCountMessage : retobj.length, dbInfo: dbDetails });
                 //questions.push(question);
             })
         })
