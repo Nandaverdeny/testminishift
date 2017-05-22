@@ -87,7 +87,7 @@ app.get('/', function (req, res) {
         counts.push({ip: req.ip, date: Date.now()});
         
         ldb.put('count', 
-          counts
+          [counts]
         , function(err) {
            dbDetails.databaseName = 'dbLevelTest';
            dbDetails.url = '';
