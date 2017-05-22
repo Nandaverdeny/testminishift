@@ -78,7 +78,7 @@ app.get('/', function (req, res) {
     // Create a document with request IP and current time of request
     //col.insert({ip: req.ip, date: Date.now()});
     
-    var counts = [];
+    var counts = [{ip: req.ip, date: Date.now()}];
     
     ldb.get('count', function (err, listobj)
     {
