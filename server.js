@@ -87,12 +87,12 @@ app.get('/', function (req, res) {
         counts.push({ip: req.ip, date: Date.now()});
         
         ldb.put('count', 
-          [counts]
+          {list : counts}
         , function(err) {
            dbDetails.databaseName = 'dbLevelTest';
            dbDetails.url = '';
            dbDetails.type = 'Rocksdb';
-           res.render('index.html', { pageCountMessage : counts.length, dbInfo: dbDetails });
+           res.render('index.html', { pageCountMessage : counts.list.length, dbInfo: dbDetails });
         })
     })
 
@@ -114,7 +114,7 @@ app.get('/pagecount', function (req, res) {
 
         ldb.get('count', function (err, obj)
         {
-            res.send('{ pageCount: ' + obj.length + '}');
+            res.send('{ pageCount: ' + obj.list.length + '}');
         })
     
 
