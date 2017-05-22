@@ -86,14 +86,14 @@ app.get('/', function (req, res) {
         
         counts.push({ip: req.ip, date: Date.now()});
         
-        ldb.put('count', 
-          {list : counts}
-        , function(err) {
+        //ldb.put('count', 
+        //  {list : counts}
+        //, function(err) {
            dbDetails.databaseName = 'dbLevelTest';
            dbDetails.url = '';
            dbDetails.type = 'Rocksdb';
            res.render('index.html', { pageCountMessage : counts.list.length, dbInfo: dbDetails });
-        })
+        //})
     })
 
     // col.count(function(err, count){
