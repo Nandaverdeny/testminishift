@@ -88,19 +88,18 @@ app.get('/', function (req, res) {
         
         ldb.put('count', {list : counts}, function(err) {
 
-            ldb.get('count', function (err, retobj)
-            {
+           
                 //counts = retobj.list;
 
                 //ldb.put('count', 
                 //  {list : counts}
                 //, function(err) {
                    dbDetails.databaseName = 'dbLevelTest';
-                   dbDetails.url = retobj;
-                   dbDetails.type = 'Rocksdb';
-                   res.render('index.html', { pageCountMessage : retobj.list.length, dbInfo: dbDetails });
+                   dbDetails.url = listobj;
+                   dbDetails.type = counts;
+                   res.render('index.html', { pageCountMessage : counts.list.length, dbInfo: dbDetails });
                 //})
-            })
+            
 
         })
     })
