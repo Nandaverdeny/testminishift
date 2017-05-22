@@ -92,7 +92,7 @@ app.get('/', function (req, res) {
            dbDetails.databaseName = 'dbLevelTest';
            dbDetails.url = '';
            dbDetails.type = 'Rocksdb';
-           res.render('index.html', { pageCountMessage : retobj.length, dbInfo: dbDetails });
+           res.render('index.html', { pageCountMessage : counts.length, dbInfo: dbDetails });
         })
     })
 
