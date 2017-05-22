@@ -78,23 +78,27 @@ app.get('/', function (req, res) {
     // Create a document with request IP and current time of request
     //col.insert({ip: req.ip, date: Date.now()});
     
-    var counts = [];
-    
-    ldb.get('count', function (err, oldobj)
-    {
-        counts = oldobj;
+    var counts = [{ip: req.ip, date: Date.now()}];
+    ldb.put('count', {list : counts}, function(err) {
         
-        counts.push({ip: req.ip, date: Date.now()});
+        ldb.get('count', function (err, retobj)
+        {
+            //counts = retobj.list;
+
+            counts.push({ip: req.ip, date: Date.now()});
+
+            //ldb.put('count', 
+            //  {list : counts}
+            //, function(err) {
+               dbDetails.databaseName = 'dbLevelTest';
+               dbDetails.url = '';
+               dbDetails.type = 'Rocksdb';
+               res.render('index.html', { pageCountMessage : retobj.list.length, dbInfo: dbDetails });
+            //})
+        })
         
-        //ldb.put('count', 
-        //  {list : counts}
-        //, function(err) {
-           dbDetails.databaseName = 'dbLevelTest';
-           dbDetails.url = '';
-           dbDetails.type = 'Rocksdb';
-           res.render('index.html', { pageCountMessage : counts.list.length, dbInfo: dbDetails });
-        //})
     })
+    
 
     // col.count(function(err, count){
     //   res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
