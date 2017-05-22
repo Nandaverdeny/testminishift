@@ -89,14 +89,10 @@ app.get('/', function (req, res) {
         ldb.put('count', 
           counts
         , function(err) {
-            ldb.get('count', function (err, retobj)
-            {
-                dbDetails.databaseName = 'dbLevelTest';
-                dbDetails.url = '';
-                dbDetails.type = 'Rocksdb';
-                res.render('index.html', { pageCountMessage : retobj.length, dbInfo: dbDetails });
-                //questions.push(question);
-            })
+           dbDetails.databaseName = 'dbLevelTest';
+           dbDetails.url = '';
+           dbDetails.type = 'Rocksdb';
+           res.render('index.html', { pageCountMessage : retobj.length, dbInfo: dbDetails });
         })
     })
 
