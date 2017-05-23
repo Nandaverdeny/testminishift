@@ -84,8 +84,13 @@ app.get('/', function (req, res) {
     {
         console.log('listobj', listobj);
 
-        counts = listobj;
-        
+        if (listobj != undefined)
+        {
+          counts = listobj;
+        } else {
+          counts = [];
+        }
+          
         counts.push({ip: req.ip, date: Date.now()});
         
         ldb.put('count', counts, function(err) {
