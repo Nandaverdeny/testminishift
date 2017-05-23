@@ -78,17 +78,18 @@ app.get('/', function (req, res) {
     // Create a document with request IP and current time of request
     //col.insert({ip: req.ip, date: Date.now()});
     
-    var counts = [{ip: req.ip, date: Date.now()}];
+    var counts = [];
     
     ldb.get('count', function (err, listobj)
     {
-        counts = listobj.list;
+        console.log('listobj', listobj);
+
+        counts = listobj;
         
         counts.push({ip: req.ip, date: Date.now()});
         
-        ldb.put('count', {list : counts}, function(err) {
-
-           
+        ldb.put('count', counts, function(err) {
+            console.log('counts inside count',counts);
                 //counts = retobj.list;
 
                 //ldb.put('count', 
@@ -97,7 +98,7 @@ app.get('/', function (req, res) {
                    dbDetails.databaseName = 'dbLevelTest';
                    dbDetails.url = listobj;
                    dbDetails.type = counts;
-                   res.render('index.html', { pageCountMessage : counts.list.length, dbInfo: dbDetails });
+                   res.render('index.html', { pageCountMessage : counts.length, dbInfo: dbDetails });
                 //})
             
 
@@ -123,7 +124,8 @@ app.get('/pagecount', function (req, res) {
 
         ldb.get('count', function (err, obj)
         {
-            res.send('{ pageCount: ' + obj.list.length + '}');
+            console.log('obj on pagecount',obj);
+            res.send('{ pageCount: ' + obj.length + '}');
         })
     
 
